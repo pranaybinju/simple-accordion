@@ -88,11 +88,23 @@ class Item extends React.Component {
             onPress={() => {
               this.animateExpand();
 
-              this.props.setCurrentExpandedElem(this.props.id);
+              //  this.props.setCurrentExpandedElem(this.props.id);
             }}>
-            {this.props.heading}
-            {this.props.id === this.props.currentElementId &&
-              this.props.content}
+            <View
+              style={{
+                backgroundColor: '#8f8f8f',
+              }}>
+              <Text>Hello</Text>
+            </View>
+            <Text>
+              Anim pariatur cliche reprehenderit, enim eiusmod high life
+              accusamus terry richardson ad squid. Nihil anim keffiyeh
+              helvetica, craft beer labore wes anderson cred nesciunt sapiente
+              ea proident.Anim pariatur cliche reprehenderit, enim eiusmod high
+              life accusamus terry richardson ad squid. Nihil anim keffiyeh
+              helvetica, craft beer labore wes anderson cred nesciunt sapiente
+              ea proident.
+            </Text>
           </TouchableOpacity>
         </View>
       </Animated.ScrollView>
