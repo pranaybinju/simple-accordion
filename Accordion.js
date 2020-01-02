@@ -56,6 +56,9 @@ export default class Accordion extends React.PureComponent {
       allowFirstRowUpdate: false,
       allowSecondRowUpdate: false,
       allowThirdRowUpdate: false,
+      expandRow1: false,
+      expandRow2: false,
+      expandRow3: false,
     };
 
     this.heightIncrease = new Value(0);
@@ -71,26 +74,35 @@ export default class Accordion extends React.PureComponent {
   animateFirstRow = () => {
     this.heightIncrease = runTiming(new Clock(), new Value(0), new Value(3600));
     this.heightDecrease = runTiming(new Clock(), new Value(0), new Value(3600));
-    this.heightRow1 = interpolate(this.heightIncrease, {
-      inputRange: [0, 3600],
-      outputRange: [this.heightRow1, 200],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
 
-    this.heightRow2 = interpolate(this.heightDecrease, {
+    if (!this.state.allowFirstRowUpdate) {
+      this.heightRow1 = interpolate(this.heightIncrease, {
+        inputRange: [0, 3600],
+        outputRange: [this.heightRow1, 200],
+        extrapolate: Animated.Extrapolate.CLAMP,
+      });
+    } else {
+      this.heightRow1 = interpolate(this.heightIncrease, {
+        inputRange: [0, 3600],
+        outputRange: [this.heightRow1, 50],
+        extrapolate: Animated.Extrapolate.CLAMP,
+      });
+    }
+
+    this.heightRow2 = interpolate(this.heightIncrease, {
       inputRange: [0, 3600],
       outputRange: [this.heightRow2, 50],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
 
-    this.heightRow3 = interpolate(this.heightDecrease, {
-      inputRange: [0, 3600],
+    this.heightRow3 = interpolate(this.heightIncrease, {
+      inputRange: [0, 200],
       outputRange: [this.heightRow3, 50],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
 
     this.setState({
-      allowFirstRowUpdate: true,
+      allowFirstRowUpdate: !this.state.allowFirstRowUpdate,
       allowSecondRowUpdate: false,
       allowThirdRowUpdate: false,
     });
@@ -105,21 +117,29 @@ export default class Accordion extends React.PureComponent {
       extrapolate: Animated.Extrapolate.CLAMP,
     });
 
-    this.heightRow2 = interpolate(this.heightDecrease, {
-      inputRange: [0, 3600],
-      outputRange: [this.heightRow2, 200],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
+    if (!this.state.allowSecondRowUpdate) {
+      this.heightRow2 = interpolate(this.heightIncrease, {
+        inputRange: [0, 3600],
+        outputRange: [this.heightRow2, 200],
+        extrapolate: Animated.Extrapolate.CLAMP,
+      });
+    } else {
+      this.heightRow2 = interpolate(this.heightIncrease, {
+        inputRange: [0, 3600],
+        outputRange: [this.heightRow2, 50],
+        extrapolate: Animated.Extrapolate.CLAMP,
+      });
+    }
 
     this.heightRow3 = interpolate(this.heightDecrease, {
-      inputRange: [0, 3600],
+      inputRange: [0, 200],
       outputRange: [this.heightRow3, 50],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
 
     this.setState({
       allowFirstRowUpdate: false,
-      allowSecondRowUpdate: true,
+      allowSecondRowUpdate: !this.state.allowSecondRowUpdate,
       allowThirdRowUpdate: false,
     });
   };
@@ -127,7 +147,8 @@ export default class Accordion extends React.PureComponent {
   animateThirdRow = () => {
     this.heightIncrease = runTiming(new Clock(), new Value(0), new Value(3600));
     this.heightDecrease = runTiming(new Clock(), new Value(0), new Value(3600));
-    this.heightRow1 = interpolate(this.heightIncrease, {
+
+    this.heightRow1 = interpolate(this.heightDecrease, {
       inputRange: [0, 3600],
       outputRange: [this.heightRow1, 50],
       extrapolate: Animated.Extrapolate.CLAMP,
@@ -139,16 +160,24 @@ export default class Accordion extends React.PureComponent {
       extrapolate: Animated.Extrapolate.CLAMP,
     });
 
-    this.heightRow3 = interpolate(this.heightDecrease, {
-      inputRange: [0, 3600],
-      outputRange: [this.heightRow3, 200],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
+    if (!this.state.allowThirdRowUpdate) {
+      this.heightRow3 = interpolate(this.heightIncrease, {
+        inputRange: [0, 3600],
+        outputRange: [this.heightRow3, 200],
+        extrapolate: Animated.Extrapolate.CLAMP,
+      });
+    } else {
+      this.heightRow3 = interpolate(this.heightDecrease, {
+        inputRange: [0, 3600],
+        outputRange: [this.heightRow3, 50],
+        extrapolate: Animated.Extrapolate.CLAMP,
+      });
+    }
 
     this.setState({
       allowFirstRowUpdate: false,
       allowSecondRowUpdate: false,
-      allowThirdRowUpdate: true,
+      allowThirdRowUpdate: !this.state.allowThirdRowUpdate,
     });
   };
 
@@ -160,6 +189,7 @@ export default class Accordion extends React.PureComponent {
             margin: 20,
 
             borderRadius: 10,
+
             borderWidth: 1,
             borderColor: '#00000',
           }}>
@@ -175,19 +205,28 @@ export default class Accordion extends React.PureComponent {
                   style={{
                     backgroundColor: '#8f8f8f',
                     height: 50,
+                    flex: 1,
+
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}>
-                  <Text>Hello</Text>
+                  <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
+                    Hello
+                  </Text>
                 </View>
                 {this.state.allowFirstRowUpdate && (
-                  <Text>
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life
-                    accusamus terry richardson ad squid. Nihil anim keffiyeh
-                    helvetica, craft beer labore wes anderson cred nesciunt
-                    sapiente ea proident.Anim pariatur cliche reprehenderit,
-                    enim eiusmod high life accusamus terry richardson ad squid.
-                    Nihil anim keffiyeh helvetica, craft beer labore wes
-                    anderson cred nesciunt sapiente ea proident.
-                  </Text>
+                  <Animated.ScrollView>
+                    <Text>
+                      Anim pariatur cliche reprehenderit, enim eiusmod high life
+                      accusamus terry richardson ad squid. Nihil anim keffiyeh
+                      helvetica, craft beer labore wes anderson cred nesciunt
+                      sapiente ea proident.Anim pariatur cliche reprehenderit,
+                      enim eiusmod high life accusamus terry richardson ad
+                      squid. Nihil anim keffiyeh helvetica, craft beer labore
+                      wes anderson cred nesciunt sapiente ea
+                      proident.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasadasdasdlasdoasmcaskmdaksdaskmda
+                    </Text>
+                  </Animated.ScrollView>
                 )}
               </TouchableOpacity>
             </View>
@@ -198,11 +237,19 @@ export default class Accordion extends React.PureComponent {
               <TouchableOpacity
                 onPress={() => {
                   this.animateSecondRow();
-
                   //  this.props.setCurrentExpandedElem(this.props.id);
                 }}>
-                <View style={{backgroundColor: '#8f8f8f', height: 50}}>
-                  <Text>World</Text>
+                <View
+                  style={{
+                    backgroundColor: '#8f8f8f',
+                    height: 50,
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
+                    World
+                  </Text>
                 </View>
                 {this.state.allowSecondRowUpdate && (
                   <Text>This is very aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
@@ -216,11 +263,21 @@ export default class Accordion extends React.PureComponent {
               <TouchableOpacity
                 onPress={() => {
                   this.animateThirdRow();
-
                   //  this.props.setCurrentExpandedElem(this.props.id);
                 }}>
-                <View style={{backgroundColor: '#8f8f8f', height: 50}}>
-                  <Text>This is Accordion</Text>
+                <View
+                  style={{
+                    backgroundColor: '#8f8f8f',
+                    height: 50,
+                    flex: 1,
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
+                    This is Accordion
+                  </Text>
                 </View>
                 {this.state.allowThirdRowUpdate && (
                   <Text>This is very aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
