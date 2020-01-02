@@ -191,6 +191,7 @@ export default class Accordion extends React.PureComponent {
             borderRadius: 10,
 
             borderWidth: 1,
+            overflow: 'hidden',
             borderColor: '#00000',
           }}>
           <Animated.View style={{height: this.heightRow1}}>
@@ -205,6 +206,7 @@ export default class Accordion extends React.PureComponent {
                   backgroundColor: '#8f8f8f',
                   height: 50,
 
+                  borderColor: 'white',
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}>
@@ -242,6 +244,9 @@ export default class Accordion extends React.PureComponent {
 
                   flexDirection: 'row',
                   alignItems: 'center',
+                  borderTopWidth: 1,
+                  borderBottomWidth: 1,
+                  borderColor: 'white',
                 }}>
                 <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
                   World
@@ -255,7 +260,8 @@ export default class Accordion extends React.PureComponent {
             )}
           </Animated.View>
 
-          <Animated.View style={{height: this.heightRow3}}>
+          <Animated.View
+            style={{height: this.heightRow3, border: 1, borderColor: 'white'}}>
             <TouchableOpacity
               onPress={() => {
                 this.animateThirdRow();
@@ -266,8 +272,6 @@ export default class Accordion extends React.PureComponent {
                   backgroundColor: '#8f8f8f',
                   height: 50,
 
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}>
