@@ -96,7 +96,7 @@ export default class Accordion extends React.PureComponent {
     });
 
     this.heightRow3 = interpolate(this.heightIncrease, {
-      inputRange: [0, 200],
+      inputRange: [0, 3600],
       outputRange: [this.heightRow3, 50],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
@@ -132,7 +132,7 @@ export default class Accordion extends React.PureComponent {
     }
 
     this.heightRow3 = interpolate(this.heightDecrease, {
-      inputRange: [0, 200],
+      inputRange: [0, 3600],
       outputRange: [this.heightRow3, 50],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
@@ -193,98 +193,95 @@ export default class Accordion extends React.PureComponent {
             borderWidth: 1,
             borderColor: '#00000',
           }}>
-          <Animated.ScrollView style={{height: this.heightRow1}}>
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.animateFirstRow();
+          <Animated.View style={{height: this.heightRow1}}>
+            <TouchableOpacity
+              onPress={() => {
+                this.animateFirstRow();
 
-                  //  this.props.setCurrentExpandedElem(this.props.id);
+                //  this.props.setCurrentExpandedElem(this.props.id);
+              }}>
+              <View
+                style={{
+                  backgroundColor: '#8f8f8f',
+                  height: 50,
+
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}>
-                <View
-                  style={{
-                    backgroundColor: '#8f8f8f',
-                    height: 50,
-                    flex: 1,
+                <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
+                  Hello
+                </Text>
+              </View>
+            </TouchableOpacity>
+            {this.state.allowFirstRowUpdate && (
+              <Animated.ScrollView>
+                <Text>
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life
+                  accusamus terry richardson ad squid. Nihil anim keffiyeh
+                  helvetica, craft beer labore wes anderson cred nesciunt
+                  sapiente ea proident.Anim pariatur cliche reprehenderit, enim
+                  eiusmod high life accusamus terry richardson ad squid. Nihil
+                  anim keffiyeh helvetica, craft beer labore wes anderson cred
+                  nesciunt sapiente ea
+                  proident.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasadasdasdlasdoasmcaskmdaksdaskmda
+                </Text>
+              </Animated.ScrollView>
+            )}
+          </Animated.View>
 
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
-                    Hello
-                  </Text>
-                </View>
-                {this.state.allowFirstRowUpdate && (
-                  <Animated.ScrollView>
-                    <Text>
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life
-                      accusamus terry richardson ad squid. Nihil anim keffiyeh
-                      helvetica, craft beer labore wes anderson cred nesciunt
-                      sapiente ea proident.Anim pariatur cliche reprehenderit,
-                      enim eiusmod high life accusamus terry richardson ad
-                      squid. Nihil anim keffiyeh helvetica, craft beer labore
-                      wes anderson cred nesciunt sapiente ea
-                      proident.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasadasdasdlasdoasmcaskmdaksdaskmda
-                    </Text>
-                  </Animated.ScrollView>
-                )}
-              </TouchableOpacity>
-            </View>
-          </Animated.ScrollView>
+          <Animated.View style={{height: this.heightRow2}}>
+            <TouchableOpacity
+              onPress={() => {
+                this.animateSecondRow();
+                //  this.props.setCurrentExpandedElem(this.props.id);
+              }}>
+              <View
+                style={{
+                  backgroundColor: '#8f8f8f',
+                  height: 50,
 
-          <Animated.ScrollView style={{height: this.heightRow2}}>
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.animateSecondRow();
-                  //  this.props.setCurrentExpandedElem(this.props.id);
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}>
-                <View
-                  style={{
-                    backgroundColor: '#8f8f8f',
-                    height: 50,
-                    flex: 1,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
-                    World
-                  </Text>
-                </View>
-                {this.state.allowSecondRowUpdate && (
-                  <Text>This is very aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
-                )}
-              </TouchableOpacity>
-            </View>
-          </Animated.ScrollView>
+                <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
+                  World
+                </Text>
+              </View>
+            </TouchableOpacity>
+            {this.state.allowSecondRowUpdate && (
+              <Animated.ScrollView>
+                <Text>This is very aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+              </Animated.ScrollView>
+            )}
+          </Animated.View>
 
-          <Animated.ScrollView style={{height: this.heightRow3}}>
-            <View style={{flex: 1}}>
-              <TouchableOpacity
-                onPress={() => {
-                  this.animateThirdRow();
-                  //  this.props.setCurrentExpandedElem(this.props.id);
+          <Animated.View style={{height: this.heightRow3}}>
+            <TouchableOpacity
+              onPress={() => {
+                this.animateThirdRow();
+                //  this.props.setCurrentExpandedElem(this.props.id);
+              }}>
+              <View
+                style={{
+                  backgroundColor: '#8f8f8f',
+                  height: 50,
+
+                  borderBottomLeftRadius: 10,
+                  borderBottomRightRadius: 10,
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}>
-                <View
-                  style={{
-                    backgroundColor: '#8f8f8f',
-                    height: 50,
-                    flex: 1,
-                    borderBottomLeftRadius: 10,
-                    borderBottomRightRadius: 10,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
-                    This is Accordion
-                  </Text>
-                </View>
-                {this.state.allowThirdRowUpdate && (
-                  <Text>This is very aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
-                )}
-              </TouchableOpacity>
-            </View>
-          </Animated.ScrollView>
+                <Text style={{marginLeft: 10, color: 'white', fontSize: 14}}>
+                  This is Accordion
+                </Text>
+              </View>
+            </TouchableOpacity>
+            {this.state.allowThirdRowUpdate && (
+              <Animated.ScrollView>
+                <Text>This is very aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</Text>
+              </Animated.ScrollView>
+            )}
+          </Animated.View>
         </View>
       </SafeAreaView>
     );
