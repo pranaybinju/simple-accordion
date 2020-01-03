@@ -59,9 +59,10 @@ export default class Accordion extends React.PureComponent {
       expandRow1: false,
       expandRow2: false,
       expandRow3: false,
+      height: 50,
     };
 
-    this.heightIncrease = new Value(0);
+    this.heightIncrease = new Value(50);
     this.heightDecrease = new Value(0);
     this.heightRow1 = new Value(50);
     this.heightRow2 = new Value(50);
@@ -72,34 +73,17 @@ export default class Accordion extends React.PureComponent {
   }; */
 
   animateFirstRow = () => {
-    this.heightIncrease = runTiming(new Clock(), new Value(0), new Value(3600));
-    this.heightDecrease = runTiming(new Clock(), new Value(0), new Value(3600));
-
     if (!this.state.allowFirstRowUpdate) {
-      this.heightRow1 = interpolate(this.heightIncrease, {
-        inputRange: [0, 3600],
-        outputRange: [this.heightRow1, 200],
-        extrapolate: Animated.Extrapolate.CLAMP,
-      });
+      this.heightRow1 = runTiming(new Clock(), new Value(50), new Value(200));
     } else {
-      this.heightRow1 = interpolate(this.heightIncrease, {
-        inputRange: [0, 3600],
-        outputRange: [this.heightRow1, 50],
-        extrapolate: Animated.Extrapolate.CLAMP,
-      });
+      this.heightRow1 = runTiming(new Clock(), new Value(200), new Value(50));
     }
-
-    this.heightRow2 = interpolate(this.heightIncrease, {
-      inputRange: [0, 3600],
-      outputRange: [this.heightRow2, 50],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
-
-    this.heightRow3 = interpolate(this.heightIncrease, {
-      inputRange: [0, 3600],
-      outputRange: [this.heightRow3, 50],
-      extrapolate: Animated.Extrapolate.CLAMP,
-    });
+    if (this.state.allowSecondRowUpdate) {
+      this.heightRow2 = runTiming(new Clock(), new Value(200), new Value(50));
+    }
+    if (this.state.allowThirdRowUpdate) {
+      this.heightRow3 = runTiming(new Clock(), new Value(200), new Value(50));
+    }
 
     this.setState({
       allowFirstRowUpdate: !this.state.allowFirstRowUpdate,
@@ -109,7 +93,7 @@ export default class Accordion extends React.PureComponent {
   };
 
   animateSecondRow = () => {
-    this.heightIncrease = runTiming(new Clock(), new Value(0), new Value(3600));
+    /*   this.heightIncrease = runTiming(new Clock(), new Value(0), new Value(3600));
     this.heightDecrease = runTiming(new Clock(), new Value(0), new Value(3600));
     this.heightRow1 = interpolate(this.heightIncrease, {
       inputRange: [0, 3600],
@@ -136,6 +120,18 @@ export default class Accordion extends React.PureComponent {
       outputRange: [this.heightRow3, 50],
       extrapolate: Animated.Extrapolate.CLAMP,
     });
+ */
+    if (!this.state.allowSecondRowUpdate) {
+      this.heightRow2 = runTiming(new Clock(), new Value(50), new Value(200));
+    } else {
+      this.heightRow2 = runTiming(new Clock(), new Value(200), new Value(50));
+    }
+    if (this.state.allowFirstRowUpdate) {
+      this.heightRow1 = runTiming(new Clock(), new Value(200), new Value(50));
+    }
+    if (this.state.allowThirdRowUpdate) {
+      this.heightRow3 = runTiming(new Clock(), new Value(200), new Value(50));
+    }
 
     this.setState({
       allowFirstRowUpdate: false,
@@ -145,7 +141,7 @@ export default class Accordion extends React.PureComponent {
   };
 
   animateThirdRow = () => {
-    this.heightIncrease = runTiming(new Clock(), new Value(0), new Value(3600));
+    /*  this.heightIncrease = runTiming(new Clock(), new Value(0), new Value(3600));
     this.heightDecrease = runTiming(new Clock(), new Value(0), new Value(3600));
 
     this.heightRow1 = interpolate(this.heightDecrease, {
@@ -172,6 +168,18 @@ export default class Accordion extends React.PureComponent {
         outputRange: [this.heightRow3, 50],
         extrapolate: Animated.Extrapolate.CLAMP,
       });
+    } */
+
+    if (!this.state.allowThirdRowUpdate) {
+      this.heightRow3 = runTiming(new Clock(), new Value(50), new Value(200));
+    } else {
+      this.heightRow3 = runTiming(new Clock(), new Value(200), new Value(50));
+    }
+    if (this.state.allowFirstRowUpdate) {
+      this.heightRow1 = runTiming(new Clock(), new Value(200), new Value(50));
+    }
+    if (this.state.allowSecondRowUpdate) {
+      this.heightRow2 = runTiming(new Clock(), new Value(200), new Value(50));
     }
 
     this.setState({
